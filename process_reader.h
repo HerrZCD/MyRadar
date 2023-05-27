@@ -8,6 +8,7 @@ class ProcessReader {
 public:
   ProcessReader();
   void UpdateUserPosition();
+  void LoopUpdateUserPosition(int sleep_time = 1000);
   ProcessReader(const ProcessReader &) = delete;
   ProcessReader &operator=(const ProcessReader &) = delete;
   base::Point GetPlayerPosition() { return player_position_; }
