@@ -15,15 +15,15 @@ ProcessReader::ProcessReader() {
   GetWindowThreadProcessId(hWnd, &dwPid);
   game_handle_ = OpenProcess(PROCESS_ALL_ACCESS, FALSE, dwPid);
   char *clientBase = MemoryUtil::GetModuleBase(kClientModule, dwPid);
-  player_base_addr_ =
-      MemoryUtil::RPM<int>((HANDLE)game_handle_, (LPCVOID)(clientBase + kOffset1));
+  player_base_addr_ = MemoryUtil::RPM<int>((HANDLE)game_handle_,
+                                           (LPCVOID)(clientBase + kOffset1));
 }
 
 void ProcessReader::UpdateUserPosition() {
-  float player_position_x =
-      MemoryUtil::RPM<float>(game_handle_, (LPCVOID)((DWORD)player_base_addr_ + kOffset2));
-  float player_position_y =
-      MemoryUtil::RPM<float>(game_handle_, (LPCVOID)((DWORD)player_base_addr_ + kOffset2 + kGap));
+  float player_position_x = MemoryUtil::RPM<float>(
+      game_handle_, (LPCVOID)((DWORD)player_base_addr_ + kOffset2));
+  float player_position_y = MemoryUtil::RPM<float>(
+      game_handle_, (LPCVOID)((DWORD)player_base_addr_ + kOffset2 + kGap));
   std::cout << "Player is on x: " << player_position_x << std::endl;
   std::cout << "Player is on y: " << player_position_y << std::endl;
   player_position_ = base::Point(player_position_x, player_position_y);
